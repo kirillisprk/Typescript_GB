@@ -35,6 +35,4 @@ export const calculateTime = (date: Date, countDays: number): Date => {
   const oneDayMinute = 1440;
   return new Date(date.getTime() + (countDays * oneDayMinute * oneMinuteMilliseconds))
 }
-export const dateFormatter = (date: Date): string => {
-  return date.toISOString().split("T")[0]
-};
+export const dateFormatter = (date: Date): string => date.toISOString().split("T")[0];
