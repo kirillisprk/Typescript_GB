@@ -1,12 +1,41 @@
 import {dateFormatter, renderBlock} from './lib.js'
 
+
+export interface SearchFormData {
+  city: string,
+  startDate: Date,
+  endDate: Date,
+  amount: number
+}
+
+const getValueSearchForm = () => {
+  event.preventDefault();
+  const city = ((<HTMLInputElement>document.getElementById("city")).value) as string;
+  const startDate = new Date((<HTMLInputElement>document.getElementById("check-in-date")).value);
+  const endDate = new Date((<HTMLInputElement>document.getElementById("check-out-date")).value);
+  const amount = +((<HTMLInputElement>document.getElementById("max-price")).value) as number;
+  const searchData: SearchFormData = {
+    city: city,
+    startDate: startDate,
+    endDate: endDate,
+    amount: amount
+  }
+  search(searchData);
+
+}
+const search = (searchData: SearchFormData) => {
+  console.log(searchData)
+}
+
 export function renderSearchFormBlock(arrivalDate: Date, departureDate: Date) {
   const today = new Date();
   const calMaxDate = new Date(today.getFullYear(), today.getMonth() + 2, 1);
+
+
   renderBlock(
-    'search-form-block',
-    `
-    <form>
+      'search-form-block',
+      `
+    <form id="search">
       <fieldset class="search-filedset">
         <div class="row">
           <div>
@@ -41,12 +70,17 @@ export function renderSearchFormBlock(arrivalDate: Date, departureDate: Date) {
             <input id="max-price" type="text" value="" name="price" class="max-price" />
           </div>
           <div>
-            <div><button>Найти</button></div>
+            <div><button id="btn-search">Найти</button></div>
           </div>
         </div>
       </fieldset>
     </form>
     `
   )
+  const buttonSearch = document.getElementById("search");
+  if (buttonSearch != null) {
+    buttonSearch.onclick = function () {
+      getValueSearchForm();
+    }
+  }
 }
-
