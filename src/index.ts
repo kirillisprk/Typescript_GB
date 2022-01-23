@@ -10,6 +10,7 @@ import {
   getFavoritesAmount
 } from './user.js'
 import {calculateTime} from './lib.js'
+import {getTodosByCount} from "./Todos.js";
 
 window.addEventListener('DOMContentLoaded', () => {
 
@@ -33,7 +34,9 @@ window.addEventListener('DOMContentLoaded', () => {
   renderUserBlock(userInfoData, favoritesAmount);
   renderSearchFormBlock(arrivalDate, departureDate);
   renderSearchStubBlock();
-
+  getTodosByCount(101).then(data => {
+    console.log(data)
+  })
   /*  renderToast(
       {text: 'Это пример уведомления. Используйте его при необходимости', type: 'success'},
       {
