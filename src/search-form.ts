@@ -8,8 +8,9 @@ export interface SearchFormData {
   amount: number
 }
 
-const getValueSearchForm = () => {
-  event.preventDefault();
+const getValueSearchForm = (event: Event | null) => {
+  if (event)
+    event.preventDefault();
   const city = ((<HTMLInputElement>document.getElementById("city")).value) as string;
   const startDate = new Date((<HTMLInputElement>document.getElementById("check-in-date")).value);
   const endDate = new Date((<HTMLInputElement>document.getElementById("check-out-date")).value);
@@ -80,7 +81,8 @@ export function renderSearchFormBlock(arrivalDate: Date, departureDate: Date) {
   const buttonSearch = document.getElementById("search");
   if (buttonSearch != null) {
     buttonSearch.onclick = function () {
-      getValueSearchForm();
+      if (event)
+        getValueSearchForm(event);
     }
   }
 }

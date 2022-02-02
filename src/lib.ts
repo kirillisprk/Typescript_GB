@@ -1,9 +1,22 @@
-export function renderBlock(elementId, html) {
+export function renderBlock(elementId: string, html: string) {
   const element = document.getElementById(elementId);
-  element.innerHTML = html
+  if (element)
+    element.innerHTML = html
 }
 
-export function renderToast(message, action) {
+interface Message {
+  type: string
+  text: string
+
+}
+
+interface Action {
+  name: string
+
+  handler(): void;
+}
+
+export function renderToast(message: Message | null, action: Action | null) {
   let messageText = ''
   if (message != null) {
     messageText = `
@@ -22,8 +35,8 @@ export function renderToast(message, action) {
   const button = document.getElementById('toast-main-action')
   if (button != null) {
     button.onclick = function () {
-      if (action != null && action.handler != null) {
-        action.handler()
+      if (action !== null && action.handler !== null) {
+        action?.handler()
       }
       renderToast(null, null)
     }
@@ -35,4 +48,10 @@ export const calculateTime = (date: Date, countDays: number): Date => {
   const oneDayMinute = 1440;
   return new Date(date.getTime() + (countDays * oneDayMinute * oneMinuteMilliseconds))
 }
-export const dateFormatter = (date: Date): string => date.toISOString().split("T")[0];
+export const dateFormatter = (date: Date): string | null => {
+  const dateStringArray: string[] = date.toISOString().split('T');
+  const time = dateStringArray[0];
+  if (time)
+    return time.toString();
+  return null
+}

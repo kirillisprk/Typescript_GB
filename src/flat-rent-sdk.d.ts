@@ -16,9 +16,9 @@ export interface SearchParams {
 }
 
 export interface Callback<R> {
-  (error?: Error, result?: R)
-}
+  (error?: Error, result?: R): void
 
+}
 
 export declare const database: Apartment;
 

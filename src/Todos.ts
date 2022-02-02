@@ -5,7 +5,7 @@ interface toDo {
     userId: number
 }
 
-export function getTodosByCount(count) {
+export function getTodosByCount(count:number) {
     return fetch(`https://jsonplaceholder.typicode.com/posts?_start=0&_end=${count}`)
         .then<toDo[]>(response => response.json())
         .then(toDo => {

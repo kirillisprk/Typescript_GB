@@ -30,9 +30,13 @@ window.addEventListener('DOMContentLoaded', () => {
 
   setUserData(idUser, userInfo, favorites);
   const data = getLocalStorageData(1);
-  const userInfoData: UserInfo = getUserData(data);
+  const userInfoData: UserInfo | null = getUserData(data);
   const favoritesAmount: Favorites = getFavoritesAmount(data);
-  renderUserBlock(userInfoData, favoritesAmount);
+  if (userInfoData) {
+    renderUserBlock(userInfoData, favoritesAmount);
+  }
+
+
   renderSearchFormBlock(arrivalDate, departureDate);
   renderSearchStubBlock();
   getTodosByCount(101).then(data => {
